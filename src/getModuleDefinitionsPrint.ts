@@ -15,12 +15,13 @@ export default (
   emptyFile: ts.SourceFile,
   printer: ts.Printer,
   typeFile: TypeFile,
+  distDir: string,
   constants: Constants
 ) =>
   printer.printList(
     ts.ListFormat.MultiLine,
     ts.createNodeArray([
-      importModule(typeFile, constants),
+      importModule(distDir, typeFile, constants),
       importByLiteral(constants.VUEX),
       declareModule(constants.VUEX, [
         createImoprtModules(typeFile, constants),

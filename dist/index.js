@@ -11,10 +11,11 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -80,7 +81,7 @@ function cleanUp(distDir) {
 function writeShimsDefinitions(distDir, printer, emptyFile, fileTree, constants) {
     writefile_1.default(distDir, "vuex-shims.ts", getShimsDefinitionsPrint_1.default(printer, emptyFile, fileTree, constants));
 }
-function writeModuleDefinitions(distDir, storeDir, printer, emptyFile, config, constants) {
+function writeModuleDefinitions(distDir, storeDir, printer, emptyFile, constants) {
     return __awaiter(this, void 0, void 0, function () {
         var time, logger, _a, typeFiles, fileTree, files, program;
         return __generator(this, function (_b) {
@@ -96,7 +97,8 @@ function writeModuleDefinitions(distDir, storeDir, printer, emptyFile, config, c
                     program = ts.createProgram(files, {});
                     writeShimsDefinitions(distDir, printer, emptyFile, fileTree, constants);
                     typeFiles.map(function (typeFile) {
-                        writefile_1.default(path.resolve(config.distDir) + "/" + typeFile.namespace + "/", typeFile.fileName, getModuleDefinitionsPrint_1.default(program, emptyFile, printer, typeFile, constants));
+                        var outputDir = path.join(distDir, typeFile.namespace);
+                        writefile_1.default(outputDir, typeFile.fileName, getModuleDefinitionsPrint_1.default(program, emptyFile, printer, typeFile, outputDir, constants));
                     });
                     console.timeEnd(logger);
                     return [2 /*return*/];
@@ -113,10 +115,10 @@ function run(config) {
     var wp = new watchpack_1.default({});
     var printer = ts.createPrinter();
     var emptyFile = ts.createSourceFile("", "", ts.ScriptTarget.ES2015);
-    var constants = __assign({}, config_1.config.constants, config.constants);
+    var constants = __assign(__assign({}, config_1.config.constants), config.constants);
     cleanUp(distDir);
     if (config.build) {
-        writeModuleDefinitions(distDir, storeDir, printer, emptyFile, config, constants);
+        writeModuleDefinitions(distDir, storeDir, printer, emptyFile, constants);
     }
     else {
         wp.watch([], [storeDir]);
@@ -133,7 +135,7 @@ function run(config) {
                                 distTarget = path.resolve(cwd + config.distDir + filePath.replace(storeDir_1, ""));
                                 fs.removeSync(distTarget);
                             }
-                            return [4 /*yield*/, writeModuleDefinitions(distDir, storeDir, printer, emptyFile, config, constants)];
+                            return [4 /*yield*/, writeModuleDefinitions(distDir, storeDir, printer, emptyFile, constants)];
                         case 1:
                             _a.sent();
                             return [2 /*return*/];

@@ -46,6 +46,6 @@ var modulesTypesConstants = {
 //
 exports.storeDir = "../vuex-guardian-example/store";
 exports.distDir = "../vuex-guardian-example/types/vuex";
-exports.constants = __assign({}, dependenciesConstants, tsUtilityTypesConstants, shimsTypesConstants, modulesTypesConstants);
+exports.constants = __assign(__assign(__assign(__assign({}, dependenciesConstants), tsUtilityTypesConstants), shimsTypesConstants), modulesTypesConstants);
 exports.config = { storeDir: exports.storeDir, distDir: exports.distDir, constants: exports.constants, build: false };
 exports.default = exports.config;

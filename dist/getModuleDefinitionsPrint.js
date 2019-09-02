@@ -21,9 +21,9 @@ var createLiteralAliasDeclaration_1 = __importDefault(require("./createLiteralAl
 var createLocalContext_1 = __importDefault(require("./createLocalContext"));
 //_______________________________________________________
 //
-exports.default = (function (program, emptyFile, printer, typeFile, constants) {
+exports.default = (function (program, emptyFile, printer, typeFile, distDir, constants) {
     return printer.printList(ts.ListFormat.MultiLine, ts.createNodeArray([
-        importModule_1.default(typeFile, constants),
+        importModule_1.default(distDir, typeFile, constants),
         importByLiteral_1.default(constants.VUEX),
         declareModule_1.default(constants.VUEX, [
             createImoprtModules_1.default(typeFile, constants),

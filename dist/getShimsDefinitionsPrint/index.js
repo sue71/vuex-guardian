@@ -1,4 +1,11 @@
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -23,6 +30,6 @@ var rootContext_1 = __importDefault(require("./rootContext"));
 exports.default = (function (printer, emptyFile, fileTree, constants) {
     return printer.printList(ts.ListFormat.MultiLine, ts.createNodeArray([
         ts.createImportDeclaration(undefined, undefined, undefined, ts.createStringLiteral(constants.VUEX)),
-        ts.createModuleDeclaration(undefined, [ts.createModifier(ts.SyntaxKind.DeclareKeyword)], ts.createStringLiteral(constants.VUEX), ts.createModuleBlock(argument2_1.default(constants).concat(strictCommit_1.default(constants), strictDispatch_1.default(constants), strictContext_1.default(constants), strictStore_1.default(constants), rootState_1.default(fileTree, constants), rootContext_1.default(constants))))
+        ts.createModuleDeclaration(undefined, [ts.createModifier(ts.SyntaxKind.DeclareKeyword)], ts.createStringLiteral(constants.VUEX), ts.createModuleBlock(__spreadArrays(argument2_1.default(constants), strictCommit_1.default(constants), strictDispatch_1.default(constants), strictContext_1.default(constants), strictStore_1.default(constants), rootState_1.default(fileTree, constants), rootContext_1.default(constants))))
     ]), emptyFile);
 });
