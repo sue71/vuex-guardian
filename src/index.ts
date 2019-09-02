@@ -37,7 +37,6 @@ async function writeModuleDefinitions(
   storeDir: string,
   printer: ts.Printer,
   emptyFile: ts.SourceFile,
-  config: Config,
   constants: Constants
 ) {
   const time = Date.now();
@@ -49,14 +48,16 @@ async function writeModuleDefinitions(
   const program = ts.createProgram(files, {});
   writeShimsDefinitions(distDir, printer, emptyFile, fileTree, constants);
   typeFiles.map(typeFile => {
+    const outputDir = path.join(distDir, typeFile.namespace);
     writefile(
-      path.resolve(config.distDir) + "/" + typeFile.namespace + "/",
+      outputDir,
       typeFile.fileName,
       getModuleDefinitionsPrint(
         program,
         emptyFile,
         printer,
         typeFile,
+        outputDir,
         constants
       )
     );
@@ -84,7 +85,6 @@ export function run(config: Config) {
       storeDir,
       printer,
       emptyFile,
-      config,
       constants
     );
   } else {
@@ -105,7 +105,6 @@ export function run(config: Config) {
           storeDir,
           printer,
           emptyFile,
-          config,
           constants
         );
       })();

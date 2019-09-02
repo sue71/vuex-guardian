@@ -8,6 +8,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var ts = __importStar(require("typescript"));
+var path = __importStar(require("path"));
 //_______________________________________________________
 //
 function importModule(name, from) {
@@ -15,7 +16,8 @@ function importModule(name, from) {
 }
 //_______________________________________________________
 //
-function default_1(typeFile, constants) {
-    return importModule(constants.MODULE, typeFile.filePath.slice(0, -3));
+function default_1(distDir, typeFile, constants) {
+    var relativePath = path.relative(distDir, typeFile.filePath);
+    return importModule(constants.MODULE, relativePath.slice(0, -3));
 }
 exports.default = default_1;

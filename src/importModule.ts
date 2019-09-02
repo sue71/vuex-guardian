@@ -1,4 +1,5 @@
 import * as ts from "typescript";
+import * as path from 'path';
 import { TypeFile, Constants } from "./types";
 //_______________________________________________________
 //
@@ -15,6 +16,7 @@ function importModule(name: string, from: string) {
 }
 //_______________________________________________________
 //
-export default function(typeFile: TypeFile, constants: Constants) {
-  return importModule(constants.MODULE, typeFile.filePath.slice(0, -3));
+export default function(distDir: string, typeFile: TypeFile, constants: Constants) {
+  const relativePath = path.relative(distDir, typeFile.filePath);
+  return importModule(constants.MODULE, relativePath.slice(0, -3));
 }
