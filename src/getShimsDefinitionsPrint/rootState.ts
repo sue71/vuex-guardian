@@ -35,7 +35,7 @@ export default function(fileTree: FileTree[], constants: Constants) {
           node.push(
             ts.createPropertySignature(
               undefined,
-              ts.createIdentifier(name),
+              ts.createStringLiteral(name),
               undefined,
               ts.createIntersectionTypeNode([
                 getSignature(
