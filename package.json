@@ -11,6 +11,9 @@
   "bin": {
     "vuex-guardian": "./bin/vuex-guardian.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "CLI_DEV=true nodemon",
     "build": "tsc",
