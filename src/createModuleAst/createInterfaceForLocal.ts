@@ -23,14 +23,8 @@ const getPropertySignature = (
       [
         ts.createIndexedAccessTypeNode(
           ts.createIndexedAccessTypeNode(
-            ts.createIndexedAccessTypeNode(
-              ts.createTypeReferenceNode(
-                ts.createIdentifier(constants.MODULES),
-                undefined
-              ),
-              ts.createLiteralTypeNode(
-                ts.createStringLiteral(fileInfo.nameSpace)
-              )
+            ts.createTypeQueryNode(
+              ts.createIdentifier(constants.MODULE)
             ),
             ts.createLiteralTypeNode(
               ts.createStringLiteral(
